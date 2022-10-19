@@ -1,104 +1,118 @@
-//! getting all the necessary tags from the document
+let input = document.getElementById('search_item'),
+    boxCont = document.querySelector('.box__container'),
+    doc = boxCont.querySelector('.document'),
+    searching = document.querySelector('.searching'),
+    search = document.querySelector('.search'),
+    popup = document.querySelector('.popup'),
+    removePopup = popup.querySelector('#removePopup');
 
-let input = document.querySelector("#user"),
-  user = document.querySelector(".about-user"),
-  warning = document.querySelector(".warning"),
-  userDetails = document.querySelector(".user-details");
 
-//! adding a press event to the input so when the user clicks Enter on his/her keyboard, it should perform a function.
 
-input.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    // ! if the input value is empty
-    if (input.value === "") {
-      // ! add the warning class
-      warning.classList.add("active");
-      // ! and set the innerHTML to this
-      warning.innerHTML =
-        "<div class='message error'>Please input a user name!</div>";
+function getUsers() {
+    let inputValue = input.value;
+    let url = `https://api.github.com/users/${inputValue}`;
+    
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        if(data.message) {
+            let randomDelay = ((Math.random() * 2000) + 100).toFixed();
+            
+            setTimeout(() => {
+                popup.classList.add('active');
+            }, randomDelay)
+        } else {
+            popup.classList.remove('active');
 
-      // ! after 3000 milliseconds or 3 seconde,
-      setTimeout(() => {
-        // ! remove the warning class
-        warning.classList.remove("active");
-      }, 3000);
-    } else {
-      // ! run the function if the user types in something.
-      getUser();
-      // ! setting the input to nothing when the user clicks Enter
-      input.value = "";
-    }
-  }
+            searching.classList.add('remove');
+            boxCont.classList.add('show');
+            doc.innerHTML = `<div class="user__container">
+                                <div class="user__section">
+                                    <div class="image__container">
+                                        <img src="${data.avatar_url}" alt="user">
+                                    </div>
+                    
+                                    <div class="user__details">
+                                        <div class="name">${data.name===null ? 'No name' : data.name}.</div>
+                                        <div class="username">${data.login}.</div>
+                                        <div class="location">
+                                            <i class="material-icons">my_location</i>
+                                            <span>${data.location===null ? 'Unknown location' : data.location}.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="button">
+                                    <a href="${data.html_url}" target="_blank" class="btn">visit profile</a>
+                                </div>
+                            </div>
+
+                            <div class="user__profile">
+                                <div class="bio__details">
+                                    <div class="about">about</div>
+                                    <div class="bio">${data.bio===null ? 'Description is unavailable' : data.bio}</div>
+                                </div>
+                
+                                <div class="followers">
+                                    <div class="follow">
+                                        <div class="heading">followers</div>
+                                        <span class="num">${data.followers}</span>
+                                    </div>
+                                    <div class="follow">
+                                        <div class="heading">following</div>
+                                        <span class="num">${data.following}</span>
+                                    </div>
+                                    <div class="follow">
+                                        <div class="heading">repositories</div>
+                                        <span class="num">${data.public_repos}</span>
+                                    </div>
+                                </div>
+                            </div>`;
+        }
+    })
+    .catch(err => {
+        popup.classList.add('active');
+        popup.innerHTML = `<div class="box">
+                            <i class="material-icons" id="removePopup">close</i>
+                                <div class="text">
+                                    <h1>Connection problem</h1>
+                                    <p>Please check you connection and reload the page.</p>
+                                </div>
+                        </div>`;
+
+        console.log(err);
+    })
+};
+
+removePopup.addEventListener('click', () => {
+    popup.classList.remove('active');
+    searching.classList.add('remove');
+    boxCont.classList.remove('show');
+    doc.innerHTML = '';
 });
 
-// TODO: the function that it should perform when the user types in something and clicks Enter
-const getUser = async () => {
-  // ! setting whatever the user types to inputValue
-  let inputValue = input.value;
-  // ! creating the url for easy access
-  let url = (await "https://api.github.com/users/") + inputValue;
-  // ! adding the warning class when searching for user
-  warning.classList.add("active");
-  warning.innerHTML = `<div class='message success'>Searching for <span>${inputValue}</span>. Please wait...</div>`;
 
-  // ! setting the time you want it to show
-  setTimeout(() => {
-    // ! fetching the url that we created before
-    fetch(url)
-      // ! converting the object into a json
-      .then((response) => response.json())
-      // ! collecting the data
-      .then((data) => {
-        // ! setting the innerHTML of the user details
-        user.innerHTML = `
-      <div class="user-details">
-      <div class="top">
-        <div class="image-container">
-          <a href="${data.html_url}" target='_blank'>
-            <img
-              src="${data.avatar_url}"
-              alt="user"
-            />
-          </a>
-        </div>
-      </div>
-      <div class="bottom">
-        <div class="name">
-          <div class="user-name">${
-            data.login === null ? "No username" : data.login
-          }</div>
-          <div class="real-name">${
-            data.name === null ? `${data.login} has no name` : data.name
-          }</div>
-        </div>
-        <div class="bio">
-          <div class="bio-top">Bio</div>
-          <p>${data.bio === null ? `${data.login} has no bio` : data.bio}</p>
-        </div>
-        <div class="table">
-          <div class="card">
-            <span class="top-span">Followers</span>
-            <span class="bottom-span">${data.followers}</span>
-          </div>
-          <div class="card">
-            <span class="top-span">Following</span>
-            <span class="bottom-span">${data.followers}</span>
-          </div>
-          <div class="card">
-            <span class="top-span">Repositories</span>
-            <span class="bottom-span">${data.public_repos}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-      `;
-      })
-      // ! if theres an error
-      .catch(() => {
-        // ! alert
-        alert("something went wrong");
-        // ! and remove the user details
-        userDetails.classList.add("active");
-      });
-  }, 1000);
-};
+input.addEventListener('keypress', (e) => {
+    if(e.key == 'Enter') {
+        if(input.value == '') {
+            popup.classList.add('active');
+        } else {
+            popup.classList.remove('active');
+            e.preventDefault();
+            searching.classList.remove('remove');
+            getUsers()
+        }
+        input.value = '';
+    }
+});
+
+search.addEventListener('click', () => {
+    if(input.value == '') {
+        popup.classList.add('active');
+    } else {
+        popup.classList.remove('active');
+        searching.classList.remove('remove');
+        getUsers();
+    }
+    input.value = '';
+});
