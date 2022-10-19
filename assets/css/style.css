@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/*===== extra font =====*/
+@import url("https://fonts.googleapis.com/css2?family=Kurale&display=swap");
+/*===== font-family: 'Kurale', serif; =====*/
+
+/*===== css variables =====*/
+:root {
+  /*=====color variables =====*/
+  --color-01: #f7c815;
+  --color-02: #ec9704;
+  --color-03: #9c4a1a;
+  --color-04: #583e26;
+  --color-05: #a78b71;
+  --color-06: #ebebeb;
+  --color-07: #1f1f1f;
+  --color-08: #ffffff;
+  --border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/*===== general styling =====*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+  transition: all 0.2s linear;
+}
+
+::selection {
+  background-color: var(--color-01);
+  color: var(--color-08);
+}
+
+/*===== html size =====*/
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+/*===== media queries =====*/
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+/*===== body styling =====*/
+body {
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+
+a {
+  color: unset;
+  text-transform: capitalize;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 50rem;
+  background-color: var(--color-08);
+  padding: 1.7rem 2rem;
+  border: var(--border);
+  border-radius: 3px;
+  box-shadow: 0 3px 1rem 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.user-details {
+  /* display: none; */
+}
+
+.content .input-container {
+  width: 100%;
+  height: 5rem;
+}
+
+.input-container input {
+  border: var(--border);
+  background-color: transparent;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.image-container {
+  width: 100%;
+  height: 30rem;
+  margin: 1rem 0;
+  border: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.image-container:hover img {
+  transform: scale(1.1);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bottom .name {
+  padding: 0.5rem 0 0.7rem;
+  text-transform: capitalize;
+}
+
+.name .user-name {
+  font-size: 1.5rem;
+  color: var(--color-02);
+  margin-bottom: -0.7rem;
+}
+
+.name .real-name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--color-05);
+}
+
+.bottom .bio {
+  color: var(--color-07);
+  font-weight: 500;
+}
+
+.bottom .bio .bio-top {
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.bio p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.bottom .table {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border: var(--border);
+}
+
+.table .card {
+  flex: 1 1 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+}
+
+.table .card:nth-child(2) {
+  border-left: var(--border);
+  border-right: var(--border);
+}
+
+.card span.top-span {
+  font-size: 1.7rem;
+  color: var(--color-07);
+}
+
+.card span.bottom-span {
+  color: var(--color-05);
+  font-size: 1.5rem;
+}
+
+.warning {
+  display: none;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
+
+.message.error {
+  color: red;
+}
+
+.message.success {
+  color: green;
+}
+
+.warning span {
+  text-transform: uppercase;
+}
+
+.warning.active {
+  display: block;
+}
+
+.user-details.active {
+  display: none;
+}
+
+.message.success span {
+  color: var(--color-03);
+}
