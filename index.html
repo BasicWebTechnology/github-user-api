@@ -4,67 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- icon cdn -->
-    <link rel="stylesheet" href="" />
-    <!-- css file -->
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <!-- title -->
-    <title>Github User</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>GitHub Users</title>
   </head>
   <body>
     <div class="container">
-      <div class="content">
-        <div class="input-container">
-          <input type="text" id="user" placeholder="Search user..." />
-        </div>
-        <div class="about-user">
-          <p class="warning"></p>
-          <!-- <div class="user-details">
-            <div class="top">
-              <div class="image-container">
-                <a href="#">
-                  <img
-                    src="https://imgs.search.brave.com/4pSR-zghmK_TSoNL9RLHV90PqBXKby0e2ChqjdOMzRU/rs:fit:200:200:1/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vbmV3c3Jh/bmQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIwLzEwL25h/aXJhLWFuZC1kb2xs/YXJzLmpwZz9maXQ9/MTIwMCUyQzkwMCZz/c2w9MQ"
-                    alt="user"
-                  />
-                </a>
-              </div>
-            </div>
-            <div class="bottom">
-              <div class="name">
-                <div class="user-name">Mojombo</div>
-                <div class="real-name">Mojombo Full name</div>
-              </div>
-              <div class="bio">
-                <div class="bio-top">Bio</div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nesciunt exercitationem officia aut praesentium maxime placeat
-                  repellat ex nulla perspiciatis itaque. Dolore ab iste
-                  praesentium repellat in autem tenetur vero alias.
-                </p>
-              </div>
-              <div class="table">
-                <div class="card">
-                  <span class="top-span">Followers</span>
-                  <span class="bottom-span">10</span>
-                </div>
-                <div class="card">
-                  <span class="top-span">Following</span>
-                  <span class="bottom-span">10</span>
-                </div>
-                <div class="card">
-                  <span class="top-span">Repositories</span>
-                  <span class="bottom-span">500</span>
-                </div>
-              </div>
-            </div>
-          </div> -->
+      <div class="input__search">
+        <input type="text" id="search_item" placeholder="Search user. . ." />
+        <i class="material-icons search">search</i>
+      </div>
+      <div class="searching remove">Please wait . . .</div>
+
+      <div class="box__container">
+        <div class="document"></div>
+      </div>
+
+      <div class="popup">
+        <div class="box">
+          <i class="material-icons" id="removePopup">close</i>
+          <div class="text">
+            <h1>Invalid username</h1>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- js file -->
-    <script src="./assets/js/app.js"></script>
+    <script src="assets/js/app.js"></script>
   </body>
 </html>
